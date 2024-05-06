@@ -84,30 +84,24 @@
                             <div class="grid-container">
                                 <div class="grid-x">
                                     <div class="cell medium-6">
-                                        <label class="small-12 columns">Enter Test Code<span
-                                                style="color: red;">*</span></label>
+                                        <label class="small-12 columns">Enter Test Code<span style="color: red;">*</span></label>
                                         <input id="code" type="text" class="input">
                                     </div>
                                     <div class="cell medium-6">
-                                        <label class="small-12 columns">Enter Test Name<span
-                                                style="color: red;">*</span></label>
+                                        <label class="small-12 columns">Enter Test Name<span style="color: red;">*</span></label>
                                         <input id="name" type="text" class="input">
                                     </div>
                                     <div class="cell medium-6">
-                                        <label class="small-12 columns">Enter Department<span
-                                                style="color: red;">*</span></label>
+                                        <label class="small-12 columns">Enter Department<span style="color: red;">*</span></label>
                                         <input id="department" type="text" class="input">
                                     </div>
                                     <div class="cell medium-6">
-                                        <label class="small-12 columns">Enter Price<span
-                                                style="color: red;">*</span></label>
+                                        <label class="small-12 columns">Enter Price<span style="color: red;">*</span></label>
                                         <input id="price" type="number" class="input">
                                     </div>
-
                                 </div>
                                 <br>
-                                <div id="error" style="display: none;">Please fill all <span
-                                        style="color: red;">*</span> fields</div>
+                                <div id="error" style="display: none;">Please fill all <span style="color: red;">*</span> fields</div>
                                 <button class="button" type="submit" id="submit" style="width: 150px;">Submit</button>
                             </div>
                         </form>
@@ -124,40 +118,19 @@
     <script src="../plugins/feather.min.js"></script>
     <!-- Custom scripts -->
     <script src="/js/script.js"></script>
-     
     <script>
-        // Function to load HTML content from another file
-        function includeHTML(url, elementId) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById(elementId).innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", url, true);
-            xhttp.send();
-        }
-
-        // Call includeHTML function to include content
-        includeHTML('/sidebar', 'sidebar');
-        includeHTML('/header', 'header');
-
-
         document.getElementById("submit").addEventListener("click", function (event) {
-            isValid = true;
             event.preventDefault(); // Prevent the default form submission
+            var isValid = true;
             var requiredFields = ['code', 'name', 'department', 'price'];
 
+            // Check if any of the required fields are empty
             requiredFields.forEach(function (fieldId) {
-                console.log(fieldId)
                 var fieldValue = document.getElementById(fieldId).value.trim();
                 if (fieldValue === '') {
                     isValid = false;
                 }
             });
-
-            const inputValues = [];
-
 
             if (!isValid) {
                 document.getElementById('error').style.display = 'block'; // Show error message div
@@ -166,64 +139,30 @@
                 document.getElementById('error').style.display = 'none'; // Hide error message div
             }
 
+            // If all required fields are filled, proceed with form submission
             if (isValid) {
-                // Get form data
-                var heading = document.getElementById("heading").value;
-                var price = document.getElementById("price").value;
-                var scID = window.location.pathname.split('/')[2]; // Get the selected files
+                var formData = new FormData();
+                formData.append("code", document.getElementById("code").value.trim());
+                formData.append("name", document.getElementById("name").value.trim());
+                formData.append("department", document.getElementById("department").value.trim());
+                formData.append("price", document.getElementById("price").value.trim());
 
                 var xhr = new XMLHttpRequest();
-
-                // Configure the request
-                xhr.open("GET", `/api/sub-category/${scID}`, true);
-
-                // Set up event handler for when the request is complete
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        // Parse the response
-                        var data = JSON.parse(xhr.responseText);
-                        if (data && data.mcID) {
-                            // If mcID is available, proceed with form submission
-                            var mcID = data.mcID;
-
-                            // Create a FormData object to send in the AJAX request
-                            formData.append("heading", heading);
-                            formData.append("price", price);
-
-                            // Append selected files to the FormData object
-
-                            // Make AJAX request to your endpoint
-                            var xhr2 = new XMLHttpRequest();
-                            xhr2.open("POST", "/api/clinical_bio_chemistry", true);
-                            xhr2.onreadystatechange = function () {
-                                if (xhr2.readyState === 4) {
-                                    if (xhr2.status === 200) {
-                                        // Handle successful response from the server
-                                        var responseData = JSON.parse(xhr2.responseText);
-                                        console.log("Server response:", responseData);
-                                        window.location.replace('/clinical_bio_chemistry/' + scID)
-                                    } else {
-                                        // Handle error response
-                                        console.error("Error:", xhr2.statusText);
-                                    }
-                                }
-                            };
-                            xhr2.send(formData); // Send FormData object containing form data and files
+                xhr.open("POST", "/api/clinical_bio_chemistry", true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // Handle successful response from the server
+                            var responseData = JSON.parse(xhr.responseText);
+                            console.log("Server response:", responseData);
+                            window.location.replace('/clinical_bio_chemistry'); // Redirect to the clinical_bio_chemistry page
                         } else {
-                            console.error("Error: Unable to fetch mcID");
+                            // Handle error response
+                            console.error("Error:", xhr.statusText);
                         }
-                    } else {
-                        console.error("Error:", xhr.statusText);
                     }
                 };
-
-                // Handle errors
-                xhr.onerror = function () {
-                    console.error("Error: Request failed");
-                };
-
-                // Send the request
-                xhr.send();
+                xhr.send(formData); // Send FormData object containing form data
             }
         });
     </script>
