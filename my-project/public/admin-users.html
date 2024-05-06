@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Dashboard | Users</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./img/svg/logo.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+        crossorigin="anonymous">
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+    <div class="page-flex">
+        <!-- ! Sidebar -->
+        <div id="sidebar"></div>
+
+        <script>
+            // Function to load HTML content from another file
+            function includeHTML(url, elementId) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+
+            // Call includeHTML function to include content
+            includeHTML('/sidebar', 'sidebar');
+        </script>
+        <div class="main-wrapper">
+            <!-- ! Main nav -->
+            <div id="header"></div>
+
+            <script>
+                // Function to load HTML content from another file
+                function includeHTML(url, elementId) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(elementId).innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                }
+
+                // Call includeHTML function to include content
+                includeHTML('/header', 'header');
+            </script>
+            <!-- ! Main -->
+            <main class="main users chart-page" id="skip-target">
+                <div class="container">
+                    <div class="row" style="padding: 20px;">
+                        <h2 class="main-title col-10">Users</h2>
+                        <a href="add-admin" class="button" style="font-size: small;"> Add New User</a>
+                    </div>
+
+                    <div class="row stat-cards" id="userList">
+                    </div>
+                </div>
+            </main>
+            <!-- ! Footer -->
+            <!-- <footer class="footer">
+  <div class="container footer--flex">
+    <div class="footer-start">
+     <p>2021 © Elegant Dashboard - <a href="elegant-dashboard.com" target="_blank"
+          rel="noopener noreferrer">elegant-dashboard.com</a></p> -->
+            <!-- </div>
+    <ul class="footer-end">
+      <li><a href="##">About</a></li>
+      <li><a href="##">Support</a></li>
+      <li><a href="##">Puchase</a></li>
+    </ul>
+  </div>
+</footer> -->
+        </div>
+    </div>
+    <!-- Chart library -->
+    <script src="./plugins/chart.min.js"></script>
+    <!-- Icons library -->
+    <script src="plugins/feather.min.js"></script>
+    <!-- Custom scripts -->
+    <script src="/js/script.js"></script>
+    <script>
+        // Function to make XMLHttpRequest
+        function makeRequest(method, url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        callback(JSON.parse(xhr.responseText));
+                    } else {
+                        console.error('Request failed:', xhr.status);
+                    }
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.send();
+        }
+
+        // Fetch data from API endpoint
+        makeRequest('GET', '/api/user', function (data) {
+            const userList = document.getElementById('userList');
+            // Loop through the users and create HTML elements for each
+            data.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.classList.add('col-md-6', 'col-xl-3');
+                userItem.innerHTML = `
+                    <article class="stat-cards-item">
+                        <div class="stat-cards-icon primary">
+                            <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                        </div>
+                        <div class="stat-cards-info">
+                            <p class="stat-cards-info__num">${user.name}</p>
+                            <button class="button small warning" onclick="editUser('${user.ID}')">Edit</button>
+                            <button class="button small success" onclick="giveAccess('${user.ID}')">Edit Access</button>
+                        </div>
+                    </article>
+                `;
+                userList.appendChild(userItem);
+            });
+        });
+
+        function editUser(userId) {
+            window.location.href = `edit-admin/${userId}`;
+        }
+
+        function giveAccess(userId) {
+            window.location.href = `access/${userId}`;
+        }
+    </script>
+
+</body>
+
+</html>

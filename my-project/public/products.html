@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Dashboards</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="../css/style.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+    crossorigin="anonymous">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <style>
+    ul {
+      list-style: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="layer"></div>
+  <!-- Body content -->
+  <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+  <div class="page-flex">
+    <!-- Sidebar -->
+    <div id="sidebar"></div>
+    <script>
+      // Function to include sidebar content from another file
+      function includeHTML(url, elementId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elementId).innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+      includeHTML('/sidebar', 'sidebar');
+    </script>
+    <!-- Main content -->
+    <div class="main-wrapper">
+      <!-- Main nav -->
+      <div id="header"></div>
+      <script>
+        // Function to include header content from another file
+        function includeHTML(url, elementId) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById(elementId).innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("GET", url, true);
+          xhttp.send();
+        }
+        includeHTML('/header', 'header');
+      </script>
+      <!-- Main content -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="row" style="padding: 20px;">
+            <h2 class="main-title col-10">Products</h2>
+            <a href="add-product" id="addProductLink" class="button" style="font-size: small;">Add New Product</a>
+          </div>
+          <div class="row stat-cards" id="categoryList"></div>
+          <br><br>
+        </div>
+      </main>
+    </div>
+  </div>
+  <!-- JavaScript imports -->
+  <script src="../plugins/chart.min.js"></script>
+  <script src="../plugins/feather.min.js"></script>
+  <script src="/js/script.js"></script>
+  <script>
+    // Get the URL parameters
+    const type = window.location.pathname.split('/')[2];
+    // Update the 'Add New Product' link with the 'type' parameter
+    const addProductLink = document.getElementById('addProductLink');
+    if (type) {
+      addProductLink.href = `/add-product/${type}`;
+    }
+    // Function to make XMLHttpRequest
+    function makeRequest(method, url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            callback(JSON.parse(xhr.responseText));
+          } else {
+            console.error('Request failed:', xhr.status);
+          }
+        }
+      };
+      xhr.open(method, url, true);
+      xhr.send();
+    }
+    // Fetch product data based on 'type' parameter
+    makeRequest('GET', '/api/products/scID/getall/' + type, function (products) {
+      const categoryList = document.getElementById('categoryList');
+      products.forEach(product => {
+        console.log(product, product['main_img'], `${window.location.origin}/` + product['main_img'])
+        const productItem = document.createElement('div');
+        productItem.classList.add('col-md-6', 'col-xl-3');
+        productItem.innerHTML = `
+          <div class="card">
+            <img src="${window.location.origin}/${product['main_img']}" width='100' height='100'>
+            <div class="card-section">
+              <p>${product['heading']}</p>
+              <div class="row" style="padding: 15px;">
+                <div class="col-1"></div>
+                <button class="button small warning" onclick="editProduct('${type}', '${product.ID}')" style='margin-right: 20px'>Edit</button>
+                <button class="button small danger" onclick="deleteProduct('${product.ID}')" style='background-color: red;margin-right: 20px'>Delete</button>
+                <button class="button small danger" onclick="addSubProduct('${type}','${product.ID}')" style='background-color: red;margin-right: 20px'>Add Sub Products</button>
+                <button class="button small danger" onclick="rateProduct('${product.ID}')" style='margin-right: 20px'>Rating</button>
+                ${product.status === 1 ?
+            `<button class="button small success">Active</button>`
+            : product.status === 0 ?
+              `<button class="button small danger" style='background-color: red'>Deactive</button>`
+              :
+              ``}
+              </div>
+            </div>
+          </div>`;
+        categoryList.appendChild(productItem);
+      });
+    });
+
+    function deleteProduct(ID) {
+      makeRequest('DELETE', '/api/products/' + ID, function (products) {
+        window.location.reload()
+      });
+    }
+    // Function to navigate to edit-product.html with parameters
+    function editProduct(type, ID) {
+      window.location.href = `/edit-product/${type}/${ID}`;
+    }
+
+    function addSubProduct(type, ID) {
+      window.location.href = `/newproducts/${type}/${ID}`;
+    }
+    // Function to navigate to edit-product.html with parameters
+    function rateProduct(ID) {
+      window.location.href = `/products/${window.location.pathname.split('/')[2]}/${ID}`;
+    }
+  </script>
+</body>
+
+</html>

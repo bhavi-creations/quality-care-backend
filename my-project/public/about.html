@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Dashboard | Edit User</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+        crossorigin="anonymous">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+    <div class="page-flex">
+        <!-- ! Sidebar -->
+        <div id="sidebar"></div>
+
+        <script>
+            // Function to load HTML content from another file
+            function includeHTML(url, elementId) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+
+            // Call includeHTML function to include content
+            includeHTML('/sidebar', 'sidebar');
+        </script>
+        <div class="main-wrapper">
+            <!-- ! Main nav -->
+            <div id="header"></div>
+
+            <script>
+                // Function to load HTML content from another file
+                function includeHTML(url, elementId) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(elementId).innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                }
+
+                // Call includeHTML function to include content
+                includeHTML('/header', 'header');
+            </script>
+            <main class="page-center">
+                <article class="sign-up" style="width: 100%;">
+                    <h1 class="sign-up__title">About</h1>
+                    <form class="sign-up-form form" action="" id="editUserForm" method="post" style="width: 100%;">
+                        <label class="form-label-wrapper" id="ourMissionWrapper">
+                            <input type="text" id="id" style="display: none;">
+                            <span class="form-label">Our Mission</span>
+                            <input class="form-input" type="text" id="ourMission" placeholder="Enter mission" required>
+                            <span class="error-message" id="ourMissionError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="ourVissionWrapper">
+                            <span class="form-label">Our Vision</span>
+                            <input class="form-input" type="text" id="ourVission" placeholder="Enter vission" required>
+                            <span class="error-message" id="ourVissionError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="whatsappNoWrapper">
+                            <span class="form-label">Whatsapp Number</span>
+                            <input class="form-input" type="number" id="whatsappNo" placeholder="Enter whatsapp no"
+                                required>
+                            <span class="error-message" id="whatsappNoError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="phoneNoWrapper">
+                            <span class="form-label">Phone Number</span>
+                            <input class="form-input" type="number" id="phoneNo" placeholder="Enter phone no" required>
+                            <span class="error-message" id="phoneNoError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="emailWrapper">
+                            <span class="form-label">Email</span>
+                            <input class="form-input" type="email" id="email" placeholder="Enter email" required>
+                            <span class="error-message" id="emailError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="hNoWrapper">
+                            <span class="form-label">Address</span>
+                            <input class="form-input" type="text" id="hNo" placeholder="Enter H.no" required>
+
+                            <span class="error-message" id="hNoError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="villageWrapper">
+                            <span class="form-label">Village</span>
+                            <input class="form-input" type="text" id="village" placeholder="Enter village" required>
+                            <span class="error-message" id="villageError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="pincodeWrapper">
+                            <span class="form-label">Pincode</span>
+                            <input class="form-input" type="number" id="pincode" placeholder="Enter pincode" required>
+                            <span class="error-message" id="pincodeError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="districtWrapper">
+                            <span class="form-label">District</span>
+                            <input class="form-input" type="text" id="district" placeholder="Enter district" required>
+                            <span class="error-message" id="districtError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="stateWrapper">
+                            <span class="form-label">State</span>
+                            <input class="form-input" type="text" id="state" placeholder="Enter state" required>
+                            <span class="error-message" id="stateError"></span>
+                        </label>
+                        <button class="form-btn primary-default-btn transparent-btn" type="submit">Save Changes</button>
+                    </form>
+                </article>
+            </main>
+        </div>
+
+        <!-- Chart library -->
+        <script src="../plugins/chart.min.js"></script>
+        <!-- Icons library -->
+        <script src="plugins/feather.min.js"></script>
+        <!-- Custom scripts -->
+        <script src="/js/script.js"></script>
+        <script>
+            // Function to make XMLHttpRequest
+            function makeRequest(method, url, callback) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            callback(JSON.parse(xhr.responseText));
+                        } else {
+                            console.error('Request failed:', xhr.status);
+                        }
+                    }
+                };
+                xhr.open(method, url, true);
+                xhr.send();
+            }
+
+            // Fetch user data from API endpoint
+            makeRequest('GET', `/api/about`, function (data) {
+                // Pre-fill form fields with user data
+                document.getElementById('ourVission').value = data.our_vision;
+                document.getElementById('id').value = data.id;
+                document.getElementById('ourMission').value = data.our_mission;
+                document.getElementById('whatsappNo').value = data.whatsapp_no;
+                document.getElementById('phoneNo').value = data.phone_no;
+                document.getElementById('email').value = data.email;
+                let address = JSON.parse(data.address)
+                document.getElementById('hNo').value = address.hNo;
+                document.getElementById('pincode').value = address.pincode;
+                document.getElementById('state').value = address.pincode;
+                document.getElementById('village').value = address.village;
+                document.getElementById('district').value = address.district;
+            });
+
+            document.getElementById("editUserForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var ourMission = document.getElementById("ourMission").value;
+                var ourVission = document.getElementById("ourVission").value;
+                var whatsappNo = document.getElementById("whatsappNo").value;
+                var phoneNo = document.getElementById("phoneNo").value;
+                var email = document.getElementById("email").value;
+                var id = document.getElementById("id").value;
+                var hNO = document.getElementById("hNo").value;
+                var pincode = document.getElementById("pincode").value;
+                var state = document.getElementById("state").value;
+                var village = document.getElementById("village").value;
+                var district = document.getElementById("district").value;
+                // Validate input fields
+                var isValid = true;
+                console.log(id)
+
+                // Name
+                if (ourMission.trim() === '') {
+                    isValid = false;
+                    displayError('ourMission', 'Our Mission is required');
+                }
+
+                if (ourVission.trim() === '') {
+                    isValid = false;
+                    displayError('ourVission', 'Our Vission is required');
+                }
+
+                if (email.trim() === '') {
+                    isValid = false;
+                    displayError('email', 'Email is required');
+                }
+                if (hNO.trim() === '') {
+                    isValid = false;
+                    displayError('hNO', 'House No is required');
+                }
+                if (pincode.trim() === '') {
+                    isValid = false;
+                    displayError('pincode', 'Pincode is required');
+                }
+                if (state.trim() === '') {
+                    isValid = false;
+                    displayError('state', 'State is required');
+                }
+                if (village.trim() === '') {
+                    isValid = false;
+                    displayError('village', 'Village is required');
+                }
+                if (district.trim() === '') {
+                    isValid = false;
+                    displayError('district', 'District is required');
+                }
+
+                let address = {
+                    hNo: hNO,
+                    pincode: pincode,
+                    state: state,
+                    village: village,
+                    district: district
+                }
+
+                if (!isValid) return; // If any field is invalid, stop further processing
+
+                // Create a data object to send in the AJAX request
+                var data = {};
+                data = {
+                    ourMission: ourMission,
+                    ourVission: ourVission,
+                    whatsappNo: whatsappNo,
+                    address: JSON.stringify(address),
+                    phoneNumber: phoneNo,
+                    email: email
+                }
+                // Make AJAX request to update user details
+                var xhr = new XMLHttpRequest();
+                xhr.open("PUT", `/api/about/${id}`, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // Handle successful response from the API
+                            console.log("About updated successfully!");
+                        } else {
+                            // Handle error response
+                            console.error("Error:", xhr.responseText);
+                            // Display error message to the user
+                            // For example: document.getElementById("errorMessage").textContent = "An error occurred. Please try again.";
+                        }
+                    }
+                };
+                xhr.send(JSON.stringify(data));
+            });
+
+            function displayError(field, message) {
+                var wrapperId = field + 'Wrapper';
+                console.log(wrapperId, field + 'Error')
+                document.getElementById(wrapperId).classList.add('error');
+                document.getElementById(field + 'Error').textContent = message;
+            }
+        </script>
+</body>
+
+</html>

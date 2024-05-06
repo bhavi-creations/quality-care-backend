@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Dashboard | Dashboards</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+        crossorigin="anonymous">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+    <div class="page-flex">
+        <!-- ! Sidebar -->
+        <div id="sidebar"></div>
+
+        <script>
+            // Function to load HTML content from another file
+            function includeHTML(url, elementId) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+
+            // Call includeHTML function to include content
+            includeHTML('/sidebar', 'sidebar');
+        </script>
+        <div class="main-wrapper">
+            <!-- ! Main nav -->
+            <div id="header"></div>
+
+            <script>
+                // Function to load HTML content from another file
+                function includeHTML(url, elementId) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(elementId).innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                }
+
+                // Call includeHTML function to include content
+                includeHTML('/header', 'header');
+            </script>
+            <main class="page-center">
+                <article class="sign-up" style="width: 100%;">
+                    <h1 class="sign-up__title">Give Access</h1>
+                    <form class="sign-up-form form" action="" id="signupForm" method="post" style="width: 100%;">
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="userscheckbox">Vendors
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="productscheckbox">Products
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="categoriescheckbox">Categories
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="admin-userscheckbox">Admin Users
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="homecheckbox">Home Page
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="queriescheckbox">Queries
+                        </div>
+                        <!-- <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="">Reviews
+                        </div> -->
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="blogscheckbox">Blogs
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="recipiescheckbox">recipies
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="orderscheckbox">Orders
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="brandscheckbox">Brands
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="featurescheckbox">Features
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="keyfactscheckbox">Key Facts
+                        </div>
+                        <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                            <input type="checkbox" id="aboutcheckbox">About
+                        </div>
+                        <button class="form-btn primary-default-btn transparent-btn" type="submit">Update</button>
+                    </form>
+                </article>
+            </main>
+            <!-- Chart library -->
+            <script src="./plugins/chart.min.js"></script>
+            <!-- Icons library -->
+            <script src="plugins/feather.min.js"></script>
+            <!-- Custom scripts -->
+            <script src="/js/script.js"></script>
+            <script>
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var data = JSON.parse(xhr.responseText);
+                            const permissionData = JSON.parse(data.permissions)
+                            console.log(permissionData, permissionData.includes('users'), document.getElementById("users"))
+                            document.getElementById("userscheckbox").checked = permissionData.includes('users')
+                            document.getElementById("productscheckbox").checked = permissionData.includes('products')
+                            document.getElementById("categoriescheckbox").checked = permissionData.includes('categories')
+                            document.getElementById("admin-userscheckbox").checked = permissionData.includes('admin-users')
+                            document.getElementById("homecheckbox").checked = permissionData.includes('home')
+                            document.getElementById("orderscheckbox").checked = permissionData.includes('orders')
+                            document.getElementById("featurescheckbox").checked = permissionData.includes('features')
+                            document.getElementById("queriescheckbox").checked = permissionData.includes('queries')
+                            document.getElementById("brandscheckbox").checked = permissionData.includes('brands')
+                            document.getElementById("blogscheckbox").checked = permissionData.includes('blogs')
+                            document.getElementById("recipiescheckbox").checked = permissionData.includes('recipies')
+                            document.getElementById("keyfactscheckbox").checked = permissionData.includes('keyfacts')
+                            document.getElementById("aboutcheckbox").checked = permissionData.includes('about')
+                        } else {
+                            console.error("Error: Unable to fetch product data");
+                        }
+                    }
+                };
+                xhr.open("GET", `/api/user/${window.location.pathname.split('/')[2]}`, true);
+                xhr.send();
+                document.getElementById("signupForm").addEventListener("submit", function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    var users = document.getElementById("userscheckbox").checked;
+                    var products = document.getElementById("productscheckbox").checked;
+                    var categories = document.getElementById("categoriescheckbox").checked;
+                    var adminUsers = document.getElementById("admin-userscheckbox").checked;
+                    var home = document.getElementById("homecheckbox").checked;
+                    var orders = document.getElementById("orderscheckbox").checked;
+                    var features = document.getElementById("featurescheckbox").checked;
+                    var queries = document.getElementById("queriescheckbox").checked;
+                    var brands = document.getElementById("brandscheckbox").checked;
+                    var blogs = document.getElementById("blogscheckbox").checked;
+                    var recipies = document.getElementById("recipiescheckbox").checked;
+                    var keyfacts = document.getElementById("keyfactscheckbox").checked;
+                    var about = document.getElementById("aboutcheckbox").checked;
+
+                    var data = {
+                        users: users,
+                        products: products,
+                        categories: categories,
+                        'admin-users': adminUsers,
+                        home: home,
+                        orders: orders,
+                        recipies: recipies,
+                        features: features,
+                        queries: queries,
+                        brands: brands,
+                        blogs: blogs,
+                        keyfacts: keyfacts,
+                        about: about
+                    };
+
+                    let accessKeys = [];
+                    Object.entries(data).map(([key, value]) => {
+                        if (value) {
+                            accessKeys.push(key)
+                        }
+                    })
+
+                    // Make AJAX request to your API endpoint
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("PUT", "/api/user/access/" + window.location.pathname.split('/')[2], true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                // Handle successful response from the API
+                                console.log("User signed up successfully!");
+                                window.location.replace('/admin-users');
+                            } else {
+                                // Handle error response
+                                console.error("Error:", xhr.responseText);
+                                // Display error message to the user
+                                // For example: document.getElementById("errorMessage").textContent = "An error occurred. Please try again.";
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify({ accessKeys: accessKeys }));
+                });
+
+                function displayError(field, message) {
+                    var wrapperId = field + 'Wrapper';
+                    document.getElementById(wrapperId).classList.add('error');
+                    document.getElementById(field + 'Error').textContent = message;
+                }
+            </script>
+</body>
+
+</html>

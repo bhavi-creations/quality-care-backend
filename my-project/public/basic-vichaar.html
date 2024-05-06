@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Dashboards</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="../css/style.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+    crossorigin="anonymous">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <style>
+    ul {
+      list-style: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="layer"></div>
+  <!-- Body content -->
+  <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+  <div class="page-flex">
+    <!-- Sidebar -->
+    <div id="sidebar"></div>
+    <script>
+      // Function to include sidebar content from another file
+      function includeHTML(url, elementId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elementId).innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+      includeHTML('/sidebar', 'sidebar');
+    </script>
+    <!-- Main content -->
+    <div class="main-wrapper">
+      <!-- Main nav -->
+      <div id="header"></div>
+      <script>
+        // Function to include header content from another file
+        function includeHTML(url, elementId) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById(elementId).innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("GET", url, true);
+          xhttp.send();
+        }
+        includeHTML('/header', 'header');
+      </script>
+      <!-- Main content -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="row" style="padding: 20px;">
+            <h2 class="main-title col-10">Basic Vichaar </h2>
+            <a href="/add-basic-vichaar" id="addProductLink" class="button" style="font-size: small;">Add Basic Vichaar
+            </a>
+            <a href="/home-main-categories/3/hot" class="button" style="font-size: small;">Add Hot Basic Vichaar </a>
+            <a href="/home-main-categories/3/trending" class="button" style="font-size: small;">Add Trending Basic
+              Vichaar </a>
+          </div>
+          <div class="row stat-cards" id="categoryList"></div>
+          <br><br>
+        </div>
+      </main>
+    </div>
+  </div>
+  <!-- JavaScript imports -->
+  <script src="../plugins/chart.min.js"></script>
+  <script src="../plugins/feather.min.js"></script>
+  <script src="/js/script.js"></script>
+  <script>
+    // Get the URL parameters
+    function makeRequest(method, url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            callback(JSON.parse(xhr.responseText));
+          } else {
+            console.error('Request failed:', xhr.status);
+          }
+        }
+      };
+      xhr.open(method, url, true);
+      xhr.send();
+    }
+    makeRequest('GET', '/api/basicVichaar', function (products) {
+      const categoryList = document.getElementById('categoryList');
+      products.forEach(blog => {
+        console.log(window.location.origin)
+        const productItem = document.createElement('div');
+        productItem.classList.add('col-md-6', 'col-xl-3');
+        productItem.innerHTML = `
+          <div class="card">
+            <img src="${window.location.origin}/${JSON.parse(blog['img_urls'])[0]}">
+            <div class="card-section">
+              <p>${blog['title']}</p>
+              <div class="row" style="padding: 15px;">
+                <div class="col-1"></div>
+                <button class="button small warning" onclick="editProduct('${blog.id}')">Edit</button>
+              </div>
+            </div>
+          </div>`;
+        categoryList.appendChild(productItem);
+      });
+    });
+
+    makeRequest()
+    // Function to navigate to edit-product.html with parameters
+    function editProduct(ID) {
+      window.location.href = `/edit-basic-vichaar/${ID}`;
+    }
+  </script>
+</body>
+
+</html>

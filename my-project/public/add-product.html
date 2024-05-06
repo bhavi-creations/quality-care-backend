@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Dashboards</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="../css/style.min.css">
+  <!-- Foundation styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <style>
+    ul {
+      list-style: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="layer"></div>
+  <!-- ! Body -->
+  <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+  <div class="page-flex">
+    <!-- ! Sidebar -->
+    <div id="sidebar"></div>
+
+    <script>
+      // Function to load HTML content from another file
+      function includeHTML(url, elementId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elementId).innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+
+      // Call includeHTML function to include content
+      includeHTML('/sidebar', 'sidebar');
+    </script>
+    <div class="main-wrapper">
+      <!-- ! Main nav -->
+      <div id="header"></div>
+
+      <script>
+        // Function to load HTML content from another file
+        function includeHTML(url, elementId) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById(elementId).innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("GET", url, true);
+          xhttp.send();
+        }
+
+        // Call includeHTML function to include content
+        includeHTML('/header', 'header');
+      </script>
+      <!-- ! Main -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="row" style="padding: 20px;">
+            <h2 class="main-title small-12 columns">Add Product </h2>
+          </div>
+
+          <div class="callout" style="height: auto; width: 80%;">
+            <form id="productForm">
+              <div class="grid-container">
+                <div class="grid-x">
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Enter Product Name<span style="color: red;">*</span></label>
+                    <input id="heading" type="text" placeholder="Beauty" class="input">
+                  </div>
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Enter Price<span style="color: red;">*</span></label>
+                    <input id="price" type="number" value="0" class="input">
+                  </div>
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Select Main Image<span style="color: red;">*</span></label>
+                    <input id="main_img" type="file" value="0" class="input">
+                  </div>
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Select Hover Image<span style="color: red;">*</span></label>
+                    <input id="hover_img" type="file" value="0" class="input">
+                  </div>
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Enter Rating</label>
+                    <input id="rating" type="number" max="5" value="0" class="input">
+                  </div>
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Enter Quantity</label>
+                    <input id="quantity" type="number" value="0" class="input">
+                  </div>
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Select Brand<span style="color: red;">*</span></label>
+                    <select id="brandID" class="input">
+                      <!-- Options will be dynamically populated using JavaScript -->
+                    </select>
+                  </div>
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Is Available</label>
+                    <select id="available" class="input">
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter high Lights</label>
+                    <input type="text" id="highLights" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter GST<span style="color: red;">*</span></label>
+                    <input type="text" id="gst" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter Manufacturer</label>
+                    <input type="text" id="mfg" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Select is COD Available</label>
+                    <input type="checkbox" id="isCODAvailable" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter Delivery Charges<span style="color: red;">*</span></label>
+                    <input type="number" id="deliveryCharges" class="input" value="40">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter COD charges<span style="color: red;">*</span></label>
+                    <input type="number" id="codCharges" class="input" value="30">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter Length</label>
+                    <input type="number" id="length" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter Width</label>
+                    <input type="number" id="width" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter Height</label>
+                    <input type="number" id="height" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter Discount</label>
+                    <input type="number" id="discount" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Enter Sku</label>
+                    <input type="text" id="sku" class="input">
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 15px;">
+                    <label class="small-12 columns">Select price based on type<span style="color: red;">*</span></label>
+                    <div>
+                      <input type="text" id="price_based_on_type" />
+                      <!-- <input type="radio" name="price_based_on_type" id="quantity" value="quantity">
+                      <label for="quantity">Quantity</label>
+                      <input type="radio" name="price_based_on_type" id="litres" value="litres">
+                      <label for="litres">Litres</label>
+                      <input type="radio" name="price_based_on_type" id="kgs" value="kgs">
+                      <label for="kgs">Kilograms</label> -->
+                    </div>
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                    <label class="small-12 columns">Enter tags<span style="color: red;">*</span></label>
+                    <div id="tagsContainer">
+                      <input id="tags" />
+                    </div>
+                    <!-- <button id="addInputButton" class="button">Add Input</button> -->
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                    <label class="small-12 columns">Enter Pincodes</label>
+                    <div id="picodesContainer">
+                      <input id="pincodes" />
+                    </div>
+                    <!-- <button id="addInputButton2" class="button">Add Input</button> -->
+                  </div>
+                  <!-- <input type="checkbox" id="showCategoriesCheckbox">Check this if you need Categories
+                  <div class="cell medium-12" style="margin-top: 40px; margin-left: 0px;">
+                    <label class="small-12 columns">Enter Quantity Types</label>
+                    <div style="display: grid; grid-template-columns: 20% 20% 20%;">
+                      <div id="qunatityCategory"></div>
+                      <div id="quantityContainer">
+                      </div>
+                      <div id="quantityPrices">
+                      </div>
+                      <div id="quantityqunatity">
+                      </div>
+                      <div id="quantitysku">
+                      </div>
+                    </div>
+                    <button id="addInputButton1" class="button">Add Input</button>
+                  </div> -->
+                  <div class="cell medium-6">
+                    <label class="small-12 columns">Select Features</label>
+                    <div id="featuresCheckboxes" class="input" style="width: 100%;">
+                      <!-- Checkboxes will be dynamically populated using JavaScript -->
+                    </div>
+                  </div>
+                  <div class="cell medium-6" style="margin-top: 40px; margin-left: 0px;">
+                    <label for="exampleFileUpload" class="small-12 columns">Upload Product Images</label>
+                    <input type="file" id="exampleFileUpload" multiple class="input">
+                  </div>
+                  <div class="col-12">
+                    <label class="col-12">
+                      Write Description Of The Product<div style="color: red;display: inline">*
+                      </div>
+                      <textarea rows="5" id="description" placeholder="None" class="col-12"
+                        style="box-shadow: 1px 1px 1px 1px black; "></textarea>
+                    </label>
+                  </div>
+                  <label class="small-12 columns">Enter some more descritpion</label>
+                  <div id="summernote"></div>
+                  <script>
+                    $('#summernote').summernote({
+                      placeholder: 'Enter more description and add pictures also',
+                      tabsize: 2,
+                      height: 120,
+                      toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                      ]
+                    });
+                  </script>
+                </div>
+                <br>
+                <div id="error" style="display: none;">Please fill all <span style="color: red;">*</span> fields</div>
+                <button class="button" type="submit" id="submit" style="width: 150px;">Submit</button>
+              </div>
+            </form>
+          </div>
+          <br><br>
+        </div>
+    </div>
+    </main>
+    <!-- ! Footer -->
+    <!-- <footer class="footer">
+  <div class="container footer--flex">
+    <div class="footer-start">
+     <p>2021 © Elegant Dashboard - <a href="elegant-dashboard.com" target="_blank"
+          rel="noopener noreferrer">elegant-dashboard.com</a></p> -->
+    <!-- </div>
+    <ul class="footer-end">
+      <li><a href="##">About</a></li>
+      <li><a href="##">Support</a></li>
+      <li><a href="##">Puchase</a></li>
+    </ul>
+  </div>
+</footer> -->
+  </div>
+  </div>
+  <script src="../plugins/chart.min.js"></script>
+  <!-- Icons library -->
+  <script src="../plugins/feather.min.js"></script>
+  <!-- Custom scripts -->
+  <script src="/js/script.js"></script>
+  <script>
+    // Function to create a new input field
+    function createInput(id, type, placeholder) {
+      const inputContainer = document.getElementById(id);
+      const newInput = document.createElement('input');
+      newInput.type = type;
+      newInput.placeholder = placeholder;
+      inputContainer.appendChild(newInput);
+    }
+
+    // Add event listener to the Add Input button
+    // const addInputButton = document.getElementById('addInputButton');
+    // addInputButton.addEventListener('click', function (event) { event.preventDefault(); createInput('tagsContainer', 'text', 'Enter tag') });
+    const addInputButton1 = document.getElementById('addInputButton1');
+    const showCategoriesCheckbox = document.getElementById('showCategoriesCheckbox');
+    addInputButton1.addEventListener('click', function (event) {
+      event.preventDefault();
+      if (showCategoriesCheckbox.checked) {
+        createInput('qunatityCategory', 'text', 'Enter Category')
+      }
+      createInput('quantityContainer', 'text', 'Enter quantity type');
+      createInput('quantityPrices', 'number', 'Enter Price')
+      createInput('quantityqunatity', 'number', 'Enter quantity')
+      createInput('quantitysku', 'txet', 'Enter sku')
+    });
+    // const addInputButton2 = document.getElementById('addInputButton2');
+    // addInputButton2.addEventListener('click', function (event) { event.preventDefault(); createInput('picodesContainer', 'number', 'Enter pincode') });
+
+    // Add event listener to the Submit button
+  </script>
+  <script>
+    // Function to load HTML content from another file
+    function includeHTML(url, elementId) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById(elementId).innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    }
+
+    // Call includeHTML function to include content
+    includeHTML('/sidebar', 'sidebar');
+    includeHTML('/header', 'header');
+
+    // Function to fetch brands from the API
+    function fetchBrands() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var brands = JSON.parse(this.responseText);
+          var selectElement = document.getElementById('brandID');
+          brands.forEach(function (brand) {
+            var option = document.createElement("option");
+            option.value = brand.ID;
+            option.text = brand.brandName;
+            selectElement.appendChild(option);
+          });
+        }
+      };
+      xhttp.open("GET", '/api/brands', true);
+      xhttp.send();
+    }
+
+    // Call fetchBrands function to fetch brands
+    fetchBrands();
+
+    // Function to fetch features from the API
+    function fetchFeatures() {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            var features = JSON.parse(xhr.responseText);
+            // Call a function to append features to the form dynamically
+            appendFeaturesToForm(features);
+          } else {
+            console.error("Error: Unable to fetch features");
+          }
+        }
+      };
+      xhr.open("GET", "/api/features", true);
+      xhr.send();
+    }
+
+    fetchFeatures();
+
+    function getAllSelectedFeatureValues() {
+      var checkboxes = document.getElementsByName("featuresCheckbox");
+      var selectedValues = [];
+
+      checkboxes.forEach(function (checkbox) {
+        if (checkbox.checked) {
+          selectedValues.push(checkbox.value);
+        }
+      });
+
+      return selectedValues;
+    }
+
+    // Function to append features as checkboxes
+    function appendFeaturesToForm(features) {
+      var featuresCheckboxes = document.getElementById("featuresCheckboxes");
+      features.forEach(function (feature) {
+        var checkboxDiv = document.createElement("div");
+        checkboxDiv.classList.add("checkbox-item");
+
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "featuresCheckbox";
+        checkbox.value = feature.id;
+
+        var label = document.createElement("label");
+        label.textContent = feature.title;
+
+        checkboxDiv.appendChild(checkbox);
+        checkboxDiv.appendChild(label);
+
+        featuresCheckboxes.appendChild(checkboxDiv);
+      });
+    }
+
+    // const radioButtons = document.querySelectorAll('input[name="price_based_on_type"]');
+
+    let priceBasedOnType = document.getElementById('price_based_on_type').value;
+    // Loop through the radio buttons
+    // radioButtons.forEach((radioButton) => {
+    //   radioButton.addEventListener('change', function () {
+    //     if (this.checked) {
+    //       priceBasedOnType = this.value;
+    //     }
+    //   });
+    // });
+
+    document.getElementById("submit").addEventListener("click", function (event) {
+      isValid = true;
+      event.preventDefault(); // Prevent the default form submission
+      var requiredFields = ['heading', 'price', 'brandID', 'description', 'gst', 'deliveryCharges', 'codCharges'];
+
+      requiredFields.forEach(function (fieldId) {
+        console.log(fieldId)
+        var fieldValue = document.getElementById(fieldId).value.trim();
+        if (fieldValue === '') {
+          isValid = false;
+        }
+      });
+
+      const inputValues = [];
+      const tagsData = document.getElementById('tags').value.split(',');
+      const tagsArray = JSON.stringify(tagsData.map(tag => tag.trim()));
+      // const inputValues1 = [];
+      // const quantityInputs = document.querySelectorAll('#quantityContainer input');
+      // const priceInputs = document.querySelectorAll('#quantityPrices input');
+      // const quantityCategory = document.querySelectorAll('#qunatityCategory input');
+      // const quantityQunatity = document.querySelectorAll('#quantityqunatity input');
+      // const quantitysku = document.querySelectorAll('#quantitysku input');
+
+      // let quantityData = {};
+      // console.log(document.getElementById(summernote).value)
+      // console.log($('#summernote').summernote())
+      // console.log(document.getElementById("isCODAvailable").checked)
+
+      // let object = {}
+      // quantityInputs.forEach((input, index) => {
+      //   const type = input.value.trim();
+      //   const priceInput = priceInputs[index];
+      //   const price = priceInput ? priceInput.value.trim() : '';
+      //   const quantityDtaa = quantityQunatity[index] ? quantityQunatity[index].value.trim() : '';
+      //   const quantityskuData = quantitysku[index] ? quantitysku[index].value.trim() : '';
+
+      //   // Check if category checkbox is checked and if a category value exists
+      //   if (showCategoriesCheckbox.checked) {
+      //     if (quantityCategory[index]) {
+      //       const category = quantityCategory[index].value.trim();
+      //       if (!object[category]) {
+      //         object[category] = [];
+      //       }
+      //       if (type !== '' && price !== '' && quantityDtaa !== '' && quantityskuData !== '') {
+      //         object[category].push({ type, price, quantity: quantityDtaa, sku: quantityskuData });
+      //       }
+      //     }
+      //   } else {
+      //     // Default case
+      //     if (!object['default']) {
+      //       object['default'] = [];
+      //     }
+      //     if (type !== '' && price !== '' && quantityDtaa !== '' && quantityskuData !== '') {
+      //       object['default'].push({ type, price, quantity: quantityDtaa, sku: quantityskuData });
+      //     }
+      //   }
+      // });
+
+      // console.log(object)
+      // quantityData = object
+      // quantityData = JSON.stringify(quantityData);
+      // const pincodesInputs1 = document.querySelectorAll('#picodesContainer input');
+      // const inputValues2 = [];
+      // const pincodesInputs = document.querySelectorAll('#picodesContainer input');
+      // pincodesInputs.forEach((input, index) => {
+      //   inputValues2.push(input.value);
+      // });
+      const pincodesData = document.getElementById('pincodes').value.split(',');
+      const pincodesArray = JSON.stringify(pincodesData.map(pincode => pincode.trim()));
+
+      var selectedFeatures = getAllSelectedFeatureValues();
+
+      if (!isValid) {
+        document.getElementById('error').style.display = 'block'; // Show error message div
+        return false;
+      } else {
+        document.getElementById('error').style.display = 'none'; // Hide error message div
+      }
+
+      if (isValid) {
+        // Get form data
+        var heading = document.getElementById("heading").value;
+        var price = document.getElementById("price").value;
+        var rating = document.getElementById("rating").value;
+        var quantity = document.getElementById("quantity").value;
+        var brandID = document.getElementById("brandID").value;
+        var available = document.getElementById("available").value;
+        var highLights = document.getElementById("highLights").value;
+        var description = document.getElementById("description").value;
+        var discount = document.getElementById("discount").value;
+        var codCharges = document.getElementById("codCharges").value;
+        var length = document.getElementById("length").value;
+        var width = document.getElementById("width").value;
+        var sku = document.getElementById("sku").value;
+        var height = document.getElementById("height").value;
+        var deliveryCharges = document.getElementById("deliveryCharges").value;
+        var mfg = document.getElementById("mfg").value;
+        var gst = document.getElementById("gst").value;
+        var isCODAvailable = document.getElementById("isCODAvailable").checked;
+        var content = $('#summernote').summernote('code');
+        var files = document.getElementById("exampleFileUpload").files; // Get the selected files
+        var hover_img = document.getElementById("hover_img").files[0]; // Get the selected files
+        var main_img = document.getElementById("main_img").files[0]; // Get the selected files
+        var scID = window.location.pathname.split('/')[2]; // Get the selected files
+
+        var xhr = new XMLHttpRequest();
+
+        // Configure the request
+        xhr.open("GET", `/api/sub-category/${scID}`, true);
+
+        // Set up event handler for when the request is complete
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            // Parse the response
+            var data = JSON.parse(xhr.responseText);
+            if (data && data.mcID) {
+              // If mcID is available, proceed with form submission
+              var mcID = data.mcID;
+
+              // Create a FormData object to send in the AJAX request
+              var formData = new FormData();
+              formData.append("mcID", mcID); // Include mcID
+              formData.append("scID", scID); // Include scID
+              formData.append("heading", heading);
+              formData.append("price", price);
+              formData.append("rating", rating);
+              formData.append("quantity", quantity);
+              formData.append("sku", sku);
+              formData.append("brandID", brandID);
+              formData.append("priceBasedOnType", priceBasedOnType);
+              formData.append("descitptionDescription", content);
+              formData.append("available", available);
+              formData.append("highLights", highLights);
+              formData.append("discount", discount);
+              formData.append("description", description);
+              formData.append("main_img", main_img);
+              formData.append("hover_img", hover_img);
+              formData.append("gst", gst);
+              formData.append("dimentions", JSON.stringify({ length: length, height: height, width: width }));
+              formData.append("deliveryCharges", deliveryCharges);
+              formData.append("codCharges", codCharges);
+              formData.append("mfg", mfg);
+              formData.append("pincodes", pincodesArray);
+              // formData.append("quantityTypes", quantityData);
+              formData.append("tags", tagsArray);
+              formData.append("isCODAvailable", isCODAvailable ? 1 : 0);
+              formData.append("features", selectedFeatures);
+
+              // Append selected files to the FormData object
+              for (var i = 0; i < files.length; i++) {
+                formData.append("images[]", files[i]);
+              }
+
+              // Make AJAX request to your endpoint
+              var xhr2 = new XMLHttpRequest();
+              xhr2.open("POST", "/api/products", true);
+              xhr2.onreadystatechange = function () {
+                if (xhr2.readyState === 4) {
+                  if (xhr2.status === 200) {
+                    // Handle successful response from the server
+                    var responseData = JSON.parse(xhr2.responseText);
+                    console.log("Server response:", responseData);
+                    window.location.replace('/products/' + scID)
+                  } else {
+                    // Handle error response
+                    console.error("Error:", xhr2.statusText);
+                  }
+                }
+              };
+              xhr2.send(formData); // Send FormData object containing form data and files
+            } else {
+              console.error("Error: Unable to fetch mcID");
+            }
+          } else {
+            console.error("Error:", xhr.statusText);
+          }
+        };
+
+        // Handle errors
+        xhr.onerror = function () {
+          console.error("Error: Request failed");
+        };
+
+        // Send the request
+        xhr.send();
+      }
+    });
+  </script>
+</body>
+
+</html>

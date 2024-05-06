@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Dashboards</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./img/svg/logo.svg" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="./css/style.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+    crossorigin="anonymous">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <style>
+    ul {
+      list-style: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="layer"></div>
+  <!-- ! Body -->
+  <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+  <div class="page-flex">
+    <!-- ! Sidebar -->
+    <div id="sidebar"></div>
+
+    <script>
+      // Function to load HTML content from another file
+      function includeHTML(url, elementId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elementId).innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+
+      // Call includeHTML function to include content
+      includeHTML('/sidebar', 'sidebar');
+    </script>
+    <div class="main-wrapper">
+      <!-- ! Main nav -->
+      <div id="header"></div>
+
+      <script>
+        // Function to load HTML content from another file
+        function includeHTML(url, elementId) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById(elementId).innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("GET", url, true);
+          xhttp.send();
+        }
+
+        // Call includeHTML function to include content
+        includeHTML('/header', 'header');
+      </script>
+      <!-- ! Main -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="row" style="padding: 20px;">
+            <h2 class="main-title col-10">Sub Categories </h2>
+            <a href="add-sub-category" class="button" style="font-size: small;"> Add New Sub
+              Category</a>
+          </div>
+
+          <div class="row stat-cards" id="categoryList">
+            <!-- <div class="col-md-6 col-xl-3">
+              <article class="stat-cards-item">
+                <div class="stat-cards-icon primary">
+                  <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                </div>
+                <div class="stat-cards-info">
+                  <p class="stat-cards-info__num">Bueaty</p> -->
+            <!-- <p class="stat-cards-info__title"></p>
+                <p class="stat-cards-info__progress">
+                  <span class="stat-cards-info__profit success">
+                 
+                  </span> -->
+            <!-- <button class="button small warning">Edit</button>
+                  </p>
+                </div>
+              </article> -->
+          </div>
+          <!-- <div class="col-md-6 col-xl-3">
+            <article class="stat-cards-item">
+              <div class="stat-cards-icon warning">
+                <i data-feather="file" aria-hidden="true"></i>
+              </div>
+              <div class="stat-cards-info">
+                <p class="stat-cards-info__num">1478 286</p>
+                <p class="stat-cards-info__title">Total visits</p>
+                <p class="stat-cards-info__progress">
+                  <span class="stat-cards-info__profit success">
+                    <i data-feather="trending-up" aria-hidden="true"></i>0.24%
+                  </span>
+                  Last month
+                </p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="stat-cards-item">
+              <div class="stat-cards-icon purple">
+                <i data-feather="file" aria-hidden="true"></i>
+              </div>
+              <div class="stat-cards-info">
+                <p class="stat-cards-info__num">1478 286</p>
+                <p class="stat-cards-info__title">Total visits</p>
+                <p class="stat-cards-info__progress">
+                  <span class="stat-cards-info__profit danger">
+                    <i data-feather="trending-down" aria-hidden="true"></i>1.64%
+                  </span>
+                  Last month
+                </p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="stat-cards-item">
+              <div class="stat-cards-icon success">
+                <i data-feather="feather" aria-hidden="true"></i>
+              </div>
+              <div class="stat-cards-info">
+                <p class="stat-cards-info__num">1478 286</p>
+                <p class="stat-cards-info__title">Total visits</p>
+                <p class="stat-cards-info__progress">
+                  <span class="stat-cards-info__profit warning">
+                    <i data-feather="trending-up" aria-hidden="true"></i>0.00%
+                  </span>
+                  Last month
+                </p>
+              </div>
+            </article> -->
+        </div>
+
+        <br><br>
+    </div>
+  </div>
+  </main>
+  <!-- ! Footer -->
+  <!-- <footer class="footer">
+  <div class="container footer--flex">
+    <div class="footer-start">
+     <p>2021 © Elegant Dashboard - <a href="elegant-dashboard.com" target="_blank"
+          rel="noopener noreferrer">elegant-dashboard.com</a></p> -->
+  <!-- </div>
+    <ul class="footer-end">
+      <li><a href="##">About</a></li>
+      <li><a href="##">Support</a></li>
+      <li><a href="##">Puchase</a></li>
+    </ul>
+  </div>
+</footer> -->
+  </div>
+  </div>
+  <!-- Chart library -->
+  <script src="./plugins/chart.min.js"></script>
+  <!-- Icons library -->
+  <script src="plugins/feather.min.js"></script>
+  <!-- Custom scripts -->
+  <script src="/js/script.js"></script>
+  <script>
+    // Function to make XMLHttpRequest
+    function makeRequest(method, url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            callback(JSON.parse(xhr.responseText));
+          } else {
+            console.error('Request failed:', xhr.status);
+          }
+        }
+      };
+      xhr.open(method, url, true);
+      xhr.send();
+    }
+
+    // Fetch data from API endpoint for subcategories
+    makeRequest('GET', '/api/sub-category/getall', function (subCategories) {
+      // Fetch data from API endpoint for categories
+      makeRequest('GET', '/api/category', function (categories) {
+        const categoryList = document.getElementById('categoryList');
+        // Loop through the subcategories
+        subCategories.forEach(subCategory => {
+          // Create HTML elements for each subcategory
+          const subCategoryItem = document.createElement('div');
+          subCategoryItem.classList.add('col-md-6', 'col-xl-3');
+          subCategoryItem.innerHTML = `
+                    <article class="stat-cards-item">
+                        <div class="stat-cards-icon primary">
+                            <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                        </div>
+                        <div class="stat-cards-info">
+                            <p class="stat-cards-info__num">${subCategory.subCategoryName}</p>
+                            <p class="stat-cards-info__category">${getCategoryName(categories, subCategory.mcID)}</p>
+                            <button class="button small warning" onclick="editSubCategory('${subCategory.ID}')">Edit</button>
+                            ${subCategory.status === 1 ?
+              `<button class="button small success">Active</button>`
+              : subCategory.status === 0 ?
+                `<button class="button small danger" style='background-color: red'>Deactive</button>`
+                :
+                ``}
+                </div>
+                </article>
+                `;
+          // <button class="button small danger" style='background-color: red' onclick="deleteSubCategory('${subCategory.ID}')">Delete</button>
+          categoryList.appendChild(subCategoryItem);
+        });
+      });
+    });
+
+    // Function to get category name by categoryId
+    function getCategoryName(categories, categoryId) {
+      console.log(categories, categoryId)
+      const category = categories.find(cat => cat.ID === categoryId);
+      return category ? category.categoryName : 'Unknown';
+    }
+
+    function editSubCategory(scID) {
+      window.location.href = `edit-sub-category/${scID}`;
+    }
+    function deleteSubCategory(scID) {
+      makeRequest('DELETE', '/api/sub-category/' + scID, function (products) {
+        window.location.reload()
+      });
+    }
+  </script>
+
+
+</body>
+
+</html>

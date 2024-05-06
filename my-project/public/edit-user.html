@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Dashboard | Edit User</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+        crossorigin="anonymous">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+    <div class="page-flex">
+        <!-- ! Sidebar -->
+        <div id="sidebar"></div>
+
+        <script>
+            // Function to load HTML content from another file
+            function includeHTML(url, elementId) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+
+            // Call includeHTML function to include content
+            includeHTML('/sidebar', 'sidebar');
+        </script>
+        <div class="main-wrapper">
+            <!-- ! Main nav -->
+            <div id="header"></div>
+
+            <script>
+                // Function to load HTML content from another file
+                function includeHTML(url, elementId) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(elementId).innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                }
+
+                // Call includeHTML function to include content
+                includeHTML('/header', 'header');
+            </script>
+            <main class="page-center">
+                <article class="sign-up" style="width: 100%;">
+                    <h1 class="sign-up__title">Edit User</h1>
+                    <form class="sign-up-form form" action="" id="editUserForm" method="post" style="width: 100%;">
+                        <label class="form-label-wrapper" id="nameWrapper">
+                            <span class="form-label">Name</span>
+                            <input class="form-input" type="text" id="name" placeholder="Enter your name" required>
+                            <span class="error-message" id="nameError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="companyNameWrapper">
+                            <span class="form-label">Company Name</span>
+                            <input class="form-input" type="text" id="companyName" placeholder="Enter company name"
+                                required>
+                            <span class="error-message" id="companyNameError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="companyGSTNoWrapper">
+                            <span class="form-label">Company GST number</span>
+                            <input class="form-input" type="text" id="companyGSTNo"
+                                placeholder="Enter company registered number">
+                            <span class="error-message" id="companyGSTNoError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="companyCtfNoWrapper">
+                            <span class="form-label">Company certificate number</span>
+                            <input class="form-input" type="text" id="companyCtfNo"
+                                placeholder="Enter company certificate number">
+                            <span class="error-message" id="companyCtfNoError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="statusNoWrapper">
+                            <span class="form-label">Status</span>
+                            <select class="form-select" id="status" required>
+                                <option value="0">Pending</option>
+                                <option value="1">Accepted</option>
+                                <option value="2">Rejected</option>
+                            </select>
+                            <span class="error-message" id="statusNoError"></span>
+                        </label>
+                        <div class="medium-6 cell">
+                            <label>Enter Image
+                                <input type="file" id="image" placeholder="Image"
+                                    style="box-shadow: 1px 1px 1px 1px black;">
+                                <img id="actualImage" width="100" height="100" />
+                            </label>
+                        </div>
+                        <label class="form-label-wrapper" id="hnoWrapper">
+                            <span class="form-label">H.no., building.no., street., village</span>
+                            <input class="form-input" type="text" id="hno"
+                                placeholder="Enter your H.no., building.no., street., village">
+                            <span class="error-message" id="hnoError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="cityWrapper">
+                            <span class="form-label">City</span>
+                            <input class="form-input" type="text" id="city" placeholder="Enter your city">
+                            <span class="error-message" id="cityError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="pincodeWrapper">
+                            <span class="form-label">Pincode</span>
+                            <input class="form-input" type="number" id="pincode" placeholder="Enter your Pincode">
+                            <span class="error-message" id="pincodeError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="stateWrapper">
+                            <span class="form-label">State</span>
+                            <input class="form-input" type="text" id="state" placeholder="Enter your state" required>
+                            <span class="error-message" id="stateError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="mobileWrapper">
+                            <span class="form-label">Mobile</span>
+                            <input class="form-input" type="tel" id="mobile" placeholder="Enter your phone number"
+                                pattern="[0-9]{10}" required>
+                            <span class="error-message" id="mobileError"></span>
+                        </label>
+                        <label class="form-label-wrapper" id="emailWrapper">
+                            <span class="form-label">Email</span>
+                            <input class="form-input" type="email" id="email" placeholder="Enter your email" required>
+                            <span class="error-message" id="emailError"></span>
+                        </label>
+                        <button class="form-btn primary-default-btn transparent-btn" type="submit">Save Changes</button>
+                    </form>
+                </article>
+            </main>
+            <!-- Chart library -->
+            <script src="../plugins/chart.min.js"></script>
+            <!-- Icons library -->
+            <script src="plugins/feather.min.js"></script>
+            <!-- Custom scripts -->
+            <script src="/js/script.js"></script>
+            <script>
+                // Function to make XMLHttpRequest
+                function makeRequest(method, url, callback) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                callback(JSON.parse(xhr.responseText));
+                            } else {
+                                console.error('Request failed:', xhr.status);
+                            }
+                        }
+                    };
+                    xhr.open(method, url, true);
+                    xhr.send();
+                }
+
+                // Fetch user data from API endpoint
+                var userId = window.location.pathname.split('/')[2]; // Set the user ID here
+                makeRequest('GET', `/api/subAdmin/${userId}`, function (data) {
+                    // Pre-fill form fields with user data
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('companyName').value = data.company_name;
+                    document.getElementById('companyGSTNo').value = data.company_gst_no;
+                    document.getElementById('companyCtfNo').value = data.company_ctf_no;
+                    let address = JSON.parse(data.address);
+                    document.getElementById('hno').value = address.hno;
+                    document.getElementById('state').value = address.state;
+                    document.getElementById('pincode').value = address.pincode;
+                    document.getElementById('city').value = address.city;
+                    document.getElementById('mobile').value = data.mobile;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('status').value = data.status;
+                    document.getElementById("actualImage").src = '/' + data.img_url;
+                });
+
+                document.getElementById("editUserForm").addEventListener("submit", function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    // Reset previous error messages and styles
+                    document.querySelectorAll('.form-input').forEach(function (input) {
+                        input.classList.remove('error');
+                        var wrapperId = input.id + 'Wrapper';
+                        document.getElementById(wrapperId).classList.remove('error');
+                        document.getElementById(input.id + 'Error').textContent = '';
+                    });
+
+                    // Get form data
+                    var name = document.getElementById("name").value;
+                    var companyName = document.getElementById("companyName").value;
+                    var companyGSTNo = document.getElementById("companyGSTNo").value;
+                    var companyCtfNo = document.getElementById("companyCtfNo").value;
+                    var pincode = document.getElementById("pincode").value;
+                    var hno = document.getElementById("hno").value;
+                    var state = document.getElementById("state").value;
+                    var city = document.getElementById("city").value;
+                    var mobile = document.getElementById("mobile").value;
+                    var email = document.getElementById("email").value;
+                    var status = document.getElementById("status").value;
+                    var image = document.getElementById("image").files[0];
+
+                    // Validate input fields
+                    var isValid = true;
+
+                    // Name
+                    if (name.trim() === '') {
+                        isValid = false;
+                        displayError('name', 'Name is required');
+                    }
+
+                    if (status.trim() === '') {
+                        isValid = false;
+                        displayError('status', 'Status is required');
+                    }
+
+                    if (companyName.trim() === '') {
+                        isValid = false;
+                        displayError('companyName', 'Company Name is required');
+                    }
+
+                    if (companyGSTNo.trim() === '' && companyCtfNo.trim() === '') {
+                        isValid = false;
+                        displayError('companyGSTNo', 'Company registered number or certificate number is required');
+                    }
+                    if (state.trim() === '') {
+                        isValid = false;
+                        displayError('state', 'state is required');
+                    }
+                    if (mobile.trim() === '') {
+                        isValid = false;
+                        displayError('mobile', 'Mobile is required');
+                    }
+                    if (email.trim() === '') {
+                        isValid = false;
+                        displayError('email', 'Email is required');
+                    }
+
+                    if (!isValid) return; // If any field is invalid, stop further processing
+
+                    let formData = new FormData()
+                    formData.append('name', name);
+                    formData.append('userID', userId);
+                    formData.append('company_name', companyName);
+                    formData.append('company_gst_no', companyGSTNo);
+                    formData.append('company_ctf_no', companyCtfNo);
+                    formData.append('address', JSON.stringify({ hno: hno, city: city, pincode: pincode, state: state }));
+                    formData.append('mobile', mobile);
+                    formData.append('email', email);
+                    formData.append('status', status);
+                    formData.append('user_type', 'SUBADMIN');
+                    formData.append("image", image);
+
+                    // Make AJAX request to update user details
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("PUT", `/api/subadmin/${userId}`, true); // Assuming the endpoint supports PUT method for updating user
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                // Handle successful response from the API
+                                console.log("User details updated successfully!");
+                                window.location.replace('/users'); // Redirect to user details page
+                            } else {
+                                // Handle error response
+                                console.error("Error:", xhr.responseText);
+                                // Display error message to the user
+                                // For example: document.getElementById("errorMessage").textContent = "An error occurred. Please try again.";
+                            }
+                        }
+                    };
+                    xhr.send(formData);
+                });
+
+                function displayError(field, message) {
+                    var wrapperId = field + 'Wrapper';
+                    document.getElementById(wrapperId).classList.add('error');
+                    document.getElementById(field + 'Error').textContent = message;
+                }
+            </script>
+</body>
+
+</html>

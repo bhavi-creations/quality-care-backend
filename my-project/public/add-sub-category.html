@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Dashboard | Dashboards</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+        crossorigin="anonymous">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+    <div class="page-flex">
+        <!-- ! Sidebar -->
+        <div id="sidebar"></div>
+
+        <script>
+            // Function to load HTML content from another file
+            function includeHTML(url, elementId) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+
+            // Call includeHTML function to include content
+            includeHTML('/sidebar', 'sidebar');
+        </script>
+        <div class="main-wrapper">
+            <!-- ! Main nav -->
+            <div id="header"></div>
+
+            <script>
+                // Function to load HTML content from another file
+                function includeHTML(url, elementId) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(elementId).innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                }
+
+                // Call includeHTML function to include content
+                includeHTML('/header', 'header');
+            </script>
+            <!-- ! Main -->
+            <main class="main users chart-page" id="skip-target">
+                <div class="container">
+                    <div class="row" style="padding: 20px;">
+                        <h2 class="main-title col-10">Add Sub Category </h2>
+                    </div>
+
+                    <div class="callout">
+                        <form id="subCategoryForm">
+                            <div class="grid-container">
+                                <div class="grid-x grid-padding-x">
+                                    <div class="medium-4 cell">
+                                        <label>Enter Sub Category Name
+                                            <input type="text" id="subCategoryName" placeholder="Beauty"
+                                                style="box-shadow: 1px 1px 1px 1px black; ;">
+                                        </label>
+                                    </div>
+                                    <div class="medium-4 cell">
+                                        <label>Select Status
+                                            <select id="categoryStatus" style="box-shadow: 1px 1px 1px 1px black; ">
+                                                <option value="1"> Active</option>
+                                                <option value="0"> Deactive</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="medium-4 cell">
+                                        <label>Select Main Category
+                                            <select id="mcID" style="box-shadow: 1px 1px 1px 1px black; ">
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="button">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <br><br>
+                </div>
+        </div>
+        </main>
+        <!-- ! Footer -->
+        <!-- <footer class="footer">
+  <div class="container footer--flex">
+    <div class="footer-start">
+     <p>2021 © Elegant Dashboard - <a href="elegant-dashboard.com" target="_blank"
+          rel="noopener noreferrer">elegant-dashboard.com</a></p> -->
+        <!-- </div>
+    <ul class="footer-end">
+      <li><a href="##">About</a></li>
+      <li><a href="##">Support</a></li>
+      <li><a href="##">Puchase</a></li>
+    </ul>
+  </div>
+</footer> -->
+    </div>
+    </div>
+    <script src="../plugins/chart.min.js"></script>
+    <!-- Icons library -->
+    <script src="../plugins/feather.min.js"></script>
+    <!-- Custom scripts -->
+    <script src="/js/script.js"></script>
+    <script>
+        document.getElementById("subCategoryForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form data
+            var subCategoryName = document.getElementById("subCategoryName").value;
+            var categoryStatus = document.getElementById("categoryStatus").value;
+            var mcID = document.getElementById("mcID").value;
+
+            // Create a data object to send in the AJAX request
+            var data = {
+                subCategoryName: subCategoryName,
+                status: categoryStatus,
+                mcID: mcID
+            };
+
+            // Make AJAX request to your API endpoint
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/api/sub-category", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Handle successful response from the API
+                    console.log("Category added successfully!");
+                    window.location.replace('/sub-category')
+                }
+            };
+            xhr.send(JSON.stringify(data));
+
+        });
+        // Function to load mcID options from an API
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var mcIDs = JSON.parse(this.responseText);
+                var selectElement = document.getElementById('mcID');
+                mcIDs.forEach(function (mcID) {
+                    var option = document.createElement("option");
+                    option.value = mcID.ID;
+                    option.text = mcID.categoryName;
+                    selectElement.appendChild(option);
+                });
+            }
+        };
+        xhttp.open("GET", '/api/category/getall', true);
+        xhttp.send();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Dashboard | Dashboards</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+        crossorigin="anonymous">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- Body content -->
+    <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+    <div class="page-flex">
+        <!-- Sidebar -->
+        <div id="sidebar"></div>
+        <script>
+            // Function to include sidebar content from another file
+            function includeHTML(url, elementId) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+            includeHTML('/sidebar', 'sidebar');
+        </script>
+        <!-- Main content -->
+        <div class="main-wrapper">
+
+            <!-- Main nav -->
+            <div id="header"></div>
+            <script>
+                // Function to include header content from another file
+                function includeHTML(url, elementId) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(elementId).innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                }
+                includeHTML('/header', 'header');
+            </script>
+            <!-- Main content -->
+            <main class="main users chart-page" id="skip-target">
+                <div class="container">
+                    <div class="row" style="padding: 20px;">
+                        <h2 class="main-title col-10">Queries</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Question</th>
+                                    <th>Description</th>
+                                    <th>Customer Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoryList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- JavaScript imports -->
+    <script src="../plugins/chart.min.js"></script>
+    <script src="../plugins/feather.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        // Get the URL parameters
+        const type = window.location.pathname.split('/')[2];
+        function makeRequest(method, url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        callback(JSON.parse(xhr.responseText));
+                    } else {
+                        console.error('Request failed:', xhr.status);
+                    }
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.send();
+        }
+        // Fetch product data based on 'type' parameter
+        makeRequest('GET', '/api/queries', function (products) {
+            const categoryList = document.getElementById('categoryList');
+            products.forEach(product => {
+                const row = categoryList.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+
+                
+                cell1.innerHTML = product.id;
+                cell2.innerHTML = product.question;
+                cell3.innerHTML = product.description;
+                cell4.innerHTML = product.fullName;
+            });
+        });
+
+    </script>
+</body>
+
+</html>

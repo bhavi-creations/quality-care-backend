@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Dashboard | Dashboards</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+        crossorigin="anonymous">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- Body content -->
+    <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+    <div class="page-flex">
+        <!-- Sidebar -->
+        <div id="sidebar"></div>
+        <script>
+            // Function to include sidebar content from another file
+            function includeHTML(url, elementId) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+            includeHTML('/sidebar', 'sidebar');
+        </script>
+        <!-- Main content -->
+        <div class="main-wrapper">
+
+            <!-- Main nav -->
+            <div id="header"></div>
+            <script>
+                // Function to include header content from another file
+                function includeHTML(url, elementId) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(elementId).innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                }
+                includeHTML('/header', 'header');
+            </script>
+            <!-- Main content -->
+            <main class="main users chart-page" id="skip-target">
+                <div class="container">
+                    <div style="display: inline-flex;">
+                        <div class="medium-4 cell">
+                            <label>Select Main Category
+                                <select id="mcID" style="box-shadow: 1px 1px 1px 1px black; ">
+                                    <option value="all">All</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="medium-4 cell">
+                            <label>Select Sub Category
+                                <select id="scID" style="box-shadow: 1px 1px 1px 1px black; ">
+                                    <option value="all">All</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 20px;">
+                        <h2 class="main-title col-10">Products</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Image</th>
+                                    <th>Product title</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoryList"></tbody>
+                        </table>
+                    </div>
+                    <br><br>
+                    <!-- New table for moved records -->
+                    <h2 class="main-title">Moved Products</h2>
+                    <table class="table" id="movedProductsTable">
+                        <thead>
+                            <tr>
+                                <th>checkbox</th>
+                                <th>Image</th>
+                                <th>Product title</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movedProducts"></tbody>
+                    </table>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button onclick="updateSelectedProducts()" style="padding: 10px 20px;">Update Selected
+                            Products</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- JavaScript imports -->
+    <script src="../plugins/chart.min.js"></script>
+    <script src="../plugins/feather.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        function makeRequest(method, url, callback, data = null) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        callback(JSON.parse(xhr.responseText));
+                    } else {
+                        console.error('Request failed:', xhr.status);
+                    }
+                }
+            };
+            xhr.open(method, url, true);
+            if (data !== null) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            }
+            xhr.send(data);
+        }
+
+        let selectedType;
+        console.log(window.location.pathname.split('/')[2], selectedType)
+        switch (window.location.pathname.split('/')[2]) {
+            case '1':
+                selectedType = 'hotproducts'
+                break;
+            case '2':
+                selectedType = 'ecofrnddeals'
+                break;
+            case '3':
+                selectedType = 'deals_of_the_day'
+                break;
+            case '4':
+                selectedType = 'clothing'
+                break;
+            case '5':
+                selectedType = 'sustanable_and_ecofrndly'
+                break;
+            case '6':
+                selectedType = 'recentlyadded'
+                break;
+            case '7':
+                selectedType = 'toppicks'
+                break;
+            case '8':
+                selectedType = 'banners'
+                break;
+        }
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var mcIDs = JSON.parse(this.responseText);
+                var selectElement = document.getElementById('mcID');
+                mcIDs.forEach(function (mcID) {
+                    var option = document.createElement("option");
+                    option.value = mcID.ID;
+                    option.text = mcID.categoryName;
+                    selectElement.appendChild(option);
+                });
+            }
+        };
+        xhttp.open("GET", '/api/category', true);
+        xhttp.send();
+
+        document.getElementById('mcID').addEventListener('change', function (event) {
+            const selectedMainCategoryId = event.target.value;
+            if (selectedMainCategoryId !== 'all') {
+                console.log(selectedMainCategoryId)
+                fetchSubCategories(selectedMainCategoryId);
+            }
+            productsFetch(selectedMainCategoryId)
+        });
+
+        function productsFetch(id, id1) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var products = JSON.parse(this.responseText);
+                    renderProducts(products, 'categoryList');
+                }
+            };
+            if (id === 'all') {
+                xhttp.open("GET", `/api/products/${selectedType}/0`, true);
+            }
+            else if (id1) {
+                if (id1 !== 'all') {
+                    xhttp.open("GET", '/api/products/filters/' + selectedType + '/' + id + '/' + id1, true);
+                }
+                else {
+                    if (id === 'all') {
+                        xhttp.open("GET", `/api/products/${selectedType}/0`, true);
+                    }
+                    else {
+                        xhttp.open("GET", '/api/products/filters/' + selectedType + '/' + id, true);
+                    }
+                }
+            }
+            else {
+                xhttp.open("GET", '/api/products/filters/' + selectedType + '/' + id, true);
+            }
+            xhttp.send();
+        }
+
+        document.getElementById('scID').addEventListener('change', function (event) {
+            const selectedMainCategoryId = event.target.value;
+            productsFetch(document.getElementById('mcID').value, selectedMainCategoryId)
+        });
+
+        function fetchSubCategories(mcID) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var mcIDs = JSON.parse(this.responseText);
+                    var selectElement = document.getElementById('scID');
+                    selectElement.innerHTML = '<option value="all">All</option>';
+                    console.log(mcIDs)
+                    mcIDs.subcategories.forEach(function (sData) {
+                        var option = document.createElement("option");
+                        option.value = sData.ID;
+                        option.text = sData.subCategoryName;
+                        selectElement.appendChild(option);
+                    });
+                }
+            };
+            xhttp.open("GET", '/api/category/' + mcID, true);
+            xhttp.send();
+        }
+
+
+        console.log(window.location.pathname.split('/')[2], selectedType)
+        window.onload = function () {
+            makeRequest('GET', `/api/products/${selectedType}/0`, function (products) {
+                renderProducts(products, 'categoryList');
+            });
+            // Fetch all products from the first API
+
+            // Fetch selected products from the second API
+            makeRequest('GET', `/api/products/${selectedType}/1`, function (selectedProducts) {
+                renderProducts(selectedProducts, 'movedProducts', true); // Pass true to indicate selected products
+            });
+        };
+
+        // Function to render products in a table
+        function renderProducts(products, targetElementId, isSelectedProducts = false) {
+            const targetElement = document.getElementById(targetElementId);
+            targetElement.innerHTML = '';
+
+            products.forEach(product => {
+                const row = targetElement.insertRow();
+                const cell0 = row.insertCell(0);
+                const cell1 = row.insertCell(1);
+                const cell2 = row.insertCell(2);
+                const cell3 = row.insertCell(3);
+                const cell4 = row.insertCell(4);
+
+                // Create checkbox
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = isSelectedProducts; // Default checked for selected products
+                checkbox.setAttribute('data-product-id', product.ID);
+
+                // Insert checkbox into the first cell
+                cell0.appendChild(checkbox);
+
+                // Render product data
+                cell1.innerHTML = '<div><img src="/' + product.main_img + '" width="100" height="100" /></div>';
+                cell2.innerHTML = product.heading;
+                cell3.innerHTML = product.quantity;
+                cell4.innerHTML = product.price;
+            });
+        }
+
+        // Attach event listener to the container of checkboxes
+        document.addEventListener('change', function (event) {
+            const checkbox = event.target;
+            if (checkbox.type === 'checkbox') {
+                moveProduct(checkbox, checkbox.getAttribute('data-product-id'));
+            }
+        });
+
+        // Function to move product to the other table
+        function moveProduct(checkbox, productId) {
+            const sourceTableBodyId = checkbox.checked ? 'categoryList' : 'movedProducts';
+            const targetTableBodyId = checkbox.checked ? 'movedProducts' : 'categoryList';
+
+            const productRow = checkbox.parentNode.parentNode;
+            const targetTableBody = document.getElementById(targetTableBodyId);
+            const newRow = targetTableBody.insertRow();
+
+            // Copy cells from original row to the new row
+            for (let i = 0; i < productRow.cells.length; i++) {
+                const newCell = newRow.insertCell();
+                if (i == 0) {
+                    const checkboxToAdd = document.createElement('input');
+                    checkboxToAdd.type = 'checkbox';
+                    checkboxToAdd.checked = checkbox.checked;
+                    checkboxToAdd.setAttribute('data-product-id', productId);
+                    newCell.appendChild(checkboxToAdd)
+                }
+                else {
+                    newCell.innerHTML = productRow.cells[i].innerHTML;
+                }
+            }
+
+            checkbox.checked = !checkbox.checked;
+
+            // Remove the original row from the source table
+            productRow.remove();
+        }
+
+
+        function updateSelectedProducts() {
+            // Extract selected product IDs
+            const selectedProductIds = [];
+            const movedProductsTable = document.getElementById('movedProducts');
+            const rows = movedProductsTable.getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const checkbox = rows[i].getElementsByTagName('input')[0];
+                if (checkbox && checkbox.checked) {
+                    selectedProductIds.push(checkbox.getAttribute('data-product-id'));
+                }
+            }
+
+            // Send selected product IDs to the API endpoint for updating products
+            makeRequest('POST', `/api/products/update${selectedType}`, function (response) {
+                if (response.success) {
+                    alert('Selected products updated successfully!');
+                    // You can perform any additional actions here after successful update
+                } else {
+                    alert('Failed to update selected products.');
+                }
+            }, JSON.stringify(selectedProductIds));
+        }
+    </script>
+
+</body>
+
+</html>

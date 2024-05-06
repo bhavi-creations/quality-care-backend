@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Dashboards</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="../css/style.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+    crossorigin="anonymous">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <style>
+    ul {
+      list-style: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="layer"></div>
+  <!-- ! Body -->
+  <a class="skip-link sr-only" href="#skip-target">Skip ssto content</a>
+  <div class="page-flex">
+    <!-- ! Sidebar -->
+    <div id="sidebar"></div>
+
+    <script>
+      // Function to load HTML content from another file
+      function includeHTML(url, elementId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elementId).innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+
+      // Call includeHTML function to include content
+      includeHTML('/sidebar', 'sidebar');
+    </script>
+    <div class="main-wrapper">
+      <!-- ! Main nav -->
+      <div id="header"></div>
+
+      <script>
+        // Function to load HTML content from another file
+        function includeHTML(url, elementId) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById(elementId).innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("GET", url, true);
+          xhttp.send();
+        }
+
+        // Call includeHTML function to include content
+        includeHTML('/header', 'header');
+      </script>
+      <!-- ! Main -->
+      <main class="main users chart-page" id="skip-target">
+        <div class="container">
+          <div class="row" style="padding: 20px;">
+            <h2 class="main-title col-10">Add Blog </h2>
+          </div>
+
+          <div class="callout" style="height: auto; width: 80%;">
+            <form id="productForm">
+              <div class="grid-container">
+                <div class="row">
+                  <div class="col-6">
+                    <label class="col-12">Enter Heading<div style="color: red;display: inline">*</div>
+                      <input id="heading" type="text" placeholder="Beauty" style="box-shadow: 1px 1px 1px 1px black; ;">
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <label class="col-12">Enter Title<div style="color: red;display: inline">*</div>
+                      <input id="title" type="text" placeholder="Beauty" style="box-shadow: 1px 1px 1px 1px black; ;">
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <label class="col-12">Enter Sub Heading<div style="color: red;display: inline">*</div>
+                      <input id="subHeading" type="text" placeholder="Beauty"
+                        style="box-shadow: 1px 1px 1px 1px black; ;">
+                    </label>
+                  </div>
+                </div>
+                <div class="col-6" style="margin-top: 40px; margin-left: 0px;">
+                  <label for="exampleFileUpload" class="button col-11">Upload Blog Images<div style="color: red;">*
+                    </div></label>
+                  <input type="file" id="exampleFileUpload" multiple>
+                </div>
+                <div class="col-12">
+                  <label class="col-12">
+                    Write Description Of The Blog<div style="color: red;display: inline">*</div>
+                    <textarea rows="5" id="description" placeholder="None" class="col-12"
+                      style="box-shadow: 1px 1px 1px 1px black; "></textarea>
+                  </label>
+                </div>
+
+
+              </div>
+              <br>
+              <div id="error" style="display: none;">Please fill all <div style="color: red;display: inline">*</div>
+                fields</div>
+              <button class="button" style="width: 150px;">Submit</button>
+          </div>
+          </form>
+        </div>
+
+        <br><br>
+    </div>
+  </div>
+  </main>
+  <!-- ! Footer -->
+  <!-- <footer class="footer">
+  <div class="container footer--flex">
+    <div class="footer-start">
+     <p>2021 © Elegant Dashboard - <a href="elegant-dashboard.com" target="_blank"
+          rel="noopener noreferrer">elegant-dashboard.com</a></p> -->
+  <!-- </div>
+    <ul class="footer-end">
+      <li><a href="##">About</a></li>
+      <li><a href="##">Support</a></li>
+      <li><a href="##">Puchase</a></li>
+    </ul>
+  </div>
+</footer> -->
+  </div>
+  </div>
+  <script src="../plugins/chart.min.js"></script>
+  <!-- Icons library -->
+  <script src="../plugins/feather.min.js"></script>
+  <!-- Custom scripts -->
+  <script src="/js/script.js"></script>
+  <script>
+
+    function validateFloat(input) {
+      var value = input.value;
+      value = value.replace(/[^0-9.]/g, ''); // Remove non-numeric characters except decimal point
+      input.value = value;
+    }
+
+    document.getElementById("productForm").addEventListener("submit", function (event) {
+
+      isValid = true;
+      event.preventDefault(); // Prevent the default form submission
+      var inputs = document.querySelectorAll('input[type="text"], input[type="number"], select, textarea');
+      inputs.forEach(function (input) {
+        if (input.getAttribute('id') == "keyword123") {
+        }
+        else if (input.value.trim() === '') {
+          isValid = false;
+        }
+      });
+
+      if (!isValid) {
+        document.getElementById('error').style.display = 'block'; // Show error message div
+        return false;
+      } else {
+        document.getElementById('error').style.display = 'none'; // Hide error message div
+      }
+
+      if (isValid) {
+
+        // Get form data
+        var heading = document.getElementById("heading").value;
+        var subHeading = document.getElementById("subHeading").value;
+        var title = document.getElementById("title").value;
+        var description = document.getElementById("description").value;
+        var files = document.getElementById("exampleFileUpload").files; // Get the selected files
+
+        var formData = new FormData();
+        formData.append("heading", heading);
+        formData.append("title", title);
+        formData.append("subHeading", subHeading);
+        formData.append("description", description);
+
+        // Append selected files to the FormData object
+        for (var i = 0; i < files.length; i++) {
+          formData.append("images[]", files[i]);
+        }
+
+        // Make AJAX request to your endpoint
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open("POST", "/api/blogs", true);
+        xhr2.onreadystatechange = function () {
+          if (xhr2.readyState === 4) {
+            if (xhr2.status === 200) {
+              // Handle successful response from the server
+              var responseData = JSON.parse(xhr2.responseText);
+              console.log("Server response:", responseData);
+              window.location.replace('/blogs')
+            } else {
+              // Handle error response
+              console.error("Error:", xhr2.statusText);
+            }
+          }
+        };
+        xhr2.send(formData); // Send FormData object containing form data and files
+      }
+    })
+
+  </script>
+</body>
+
+</html>

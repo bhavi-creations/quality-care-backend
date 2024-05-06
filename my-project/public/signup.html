@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Sign Up</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./img/svg/logo.svg" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="./css/style.min.css">
+</head>
+
+<body>
+  <div class="layer"></div>
+  <main class="page-center">
+    <article class="sign-up">
+      <h1 class="sign-up__title">Get started</h1>
+      <form class="sign-up-form form" action="" id="signupForm" method="post" style="width: 450px;">
+        <label class="form-label-wrapper" id="nameWrapper">
+          <span class="form-label">Name</span>
+          <input class="form-input" type="text" id="name" placeholder="Enter your name" required>
+          <span class="error-message" id="nameError"></span>
+        </label>
+        <label class="form-label-wrapper" id="companyNameWrapper">
+          <span class="form-label">Company Name</span>
+          <input class="form-input" type="text" id="companyName" placeholder="Enter company name" required>
+          <span class="error-message" id="companyNameError"></span>
+        </label>
+        <label class="form-label-wrapper" id="companyGSTNoWrapper">
+          <span class="form-label">Company registered number</span>
+          <input class="form-input" type="text" id="companyGSTNo" placeholder="Enter company registered number">
+          <span class="error-message" id="companyGSTNoError"></span>
+        </label>
+        <label class="form-label-wrapper" id="companyCtfNoWrapper">
+          <span class="form-label">Company certificate number</span>
+          <input class="form-input" type="text" id="companyCtfNo" placeholder="Enter company certificate number">
+          <span class="error-message" id="companyCtfNoError"></span>
+        </label>
+        <label class="form-label-wrapper" id="addressWrapper">
+          <span class="form-label">Address</span>
+          <input class="form-input" type="text" id="address" placeholder="Enter your address" required>
+          <span class="error-message" id="addressError"></span>
+        </label>
+        <label class="form-label-wrapper" id="mobileWrapper">
+          <span class="form-label">Mobile</span>
+          <input class="form-input" type="tel" id="mobile" placeholder="Enter your phone number" pattern="[0-9]{10}"
+            required>
+          <span class="error-message" id="mobileError"></span>
+        </label>
+        <label class="form-label-wrapper" id="emailWrapper">
+          <span class="form-label">Email</span>
+          <input class="form-input" type="email" id="email" placeholder="Enter your email" required>
+          <span class="error-message" id="emailError"></span>
+        </label>
+        <label class="form-label-wrapper" id="passwordWrapper">
+          <span class="form-label">Password</span>
+          <input class="form-input" type="password" id="password" placeholder="Enter your password" minlength="8"
+            required>
+          <span class="error-message" id="passwordError"></span>
+        </label>
+        <button class="form-btn primary-default-btn transparent-btn" type="submit">Sign up</button>
+      </form>
+    </article>
+  </main>
+  <!-- Chart library -->
+  <script src="./plugins/chart.min.js"></script>
+  <!-- Icons library -->
+  <script src="plugins/feather.min.js"></script>
+  <!-- Custom scripts -->
+  <script src="/js/script.js"></script>
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Reset previous error messages and styles
+      document.querySelectorAll('.form-input').forEach(function (input) {
+        input.classList.remove('error');
+        var wrapperId = input.id + 'Wrapper';
+        document.getElementById(wrapperId).classList.remove('error');
+        document.getElementById(input.id + 'Error').textContent = '';
+      });
+
+      // Get form data
+      var name = document.getElementById("name").value;
+      var companyName = document.getElementById("companyName").value;
+      var companyGSTNo = document.getElementById("companyGSTNo").value;
+      var companyCtfNo = document.getElementById("companyCtfNo").value;
+      var address = document.getElementById("address").value;
+      var mobile = document.getElementById("mobile").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+
+      // Validate input fields
+      var isValid = true;
+
+      // Name
+      if (name.trim() === '') {
+        isValid = false;
+        displayError('name', 'Name is required');
+      }
+
+      if (companyName.trim() === '') {
+        isValid = false;
+        displayError('companyName', 'Company Name is required');
+      }
+
+      if (companyGSTNo.trim() === '' && companyCtfNo.trim() === '') {
+        isValid = false;
+        displayError('companyGSTNo', 'Company registered number or certificate number is required');
+      }
+      if (address.trim() === '') {
+        isValid = false;
+        displayError('address', 'Address is required');
+      }
+      if (mobile.trim() === '') {
+        isValid = false;
+        displayError('mobile', 'Mobile is required');
+      }
+      if (email.trim() === '') {
+        isValid = false;
+        displayError('email', 'Email is required');
+      }
+      if (password.trim() === '') {
+        isValid = false;
+        displayError('password', 'Password is required');
+      }
+
+      if (!isValid) return; // If any field is invalid, stop further processing
+
+      // Create a data object to send in the AJAX request
+      var data = {
+        name: name,
+        company_name: companyName,
+        company_gst_no: companyGSTNo,
+        company_ctf_no: companyCtfNo,
+        address: address,
+        mobile: mobile,
+        email: email,
+        password: password,
+        status: '0',
+        user_type: 'SUBADMIN'
+      };
+
+      // Make AJAX request to your API endpoint
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/api/subadmin", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            // Handle successful response from the API
+            console.log("User signed up successfully!");
+            window.location.replace('/login');
+          } else {
+            // Handle error response
+            console.error("Error:", xhr.responseText);
+            // Display error message to the user
+            // For example: document.getElementById("errorMessage").textContent = "An error occurred. Please try again.";
+          }
+        }
+      };
+      xhr.send(JSON.stringify(data));
+    });
+
+    function displayError(field, message) {
+      var wrapperId = field + 'Wrapper';
+      document.getElementById(wrapperId).classList.add('error');
+      document.getElementById(field + 'Error').textContent = message;
+    }
+  </script>
+</body>
+
+</html>
