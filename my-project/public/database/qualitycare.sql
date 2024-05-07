@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2024 at 10:50 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: May 07, 2024 at 06:24 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `earthbased`
+-- Database: `qualitycare`
 --
 
 -- --------------------------------------------------------
@@ -132,6 +132,20 @@ CREATE TABLE `categories` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clinical_bio_chemistry`
+--
+
+CREATE TABLE `clinical_bio_chemistry` (
+  `id` int(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `department` varchar(500) NOT NULL,
+  `price` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -214,6 +228,48 @@ CREATE TABLE `general_comments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hematology`
+--
+
+CREATE TABLE `hematology` (
+  `id` int(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `department` varchar(500) NOT NULL,
+  `price` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `histopathology_cytology`
+--
+
+CREATE TABLE `histopathology_cytology` (
+  `id` int(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `department` varchar(500) NOT NULL,
+  `price` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `immunology_serology`
+--
+
+CREATE TABLE `immunology_serology` (
+  `id` int(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `department` varchar(500) NOT NULL,
+  `price` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `keyfacts`
 --
 
@@ -224,6 +280,34 @@ CREATE TABLE `keyfacts` (
   `title` longtext NOT NULL,
   `created_on` bigint(20) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `microbiology`
+--
+
+CREATE TABLE `microbiology` (
+  `id` int(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `department` varchar(500) NOT NULL,
+  `price` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `molecular_biology`
+--
+
+CREATE TABLE `molecular_biology` (
+  `id` int(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `department` varchar(500) NOT NULL,
+  `price` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -440,6 +524,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `clinical_bio_chemistry`
+--
+ALTER TABLE `clinical_bio_chemistry`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
@@ -471,9 +561,39 @@ ALTER TABLE `general_comments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hematology`
+--
+ALTER TABLE `hematology`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `histopathology_cytology`
+--
+ALTER TABLE `histopathology_cytology`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `immunology_serology`
+--
+ALTER TABLE `immunology_serology`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `keyfacts`
 --
 ALTER TABLE `keyfacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `microbiology`
+--
+ALTER TABLE `microbiology`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `molecular_biology`
+--
+ALTER TABLE `molecular_biology`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -566,6 +686,12 @@ ALTER TABLE `categories`
   MODIFY `ID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `clinical_bio_chemistry`
+--
+ALTER TABLE `clinical_bio_chemistry`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
@@ -596,10 +722,40 @@ ALTER TABLE `general_comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `hematology`
+--
+ALTER TABLE `hematology`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `histopathology_cytology`
+--
+ALTER TABLE `histopathology_cytology`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `immunology_serology`
+--
+ALTER TABLE `immunology_serology`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `keyfacts`
 --
 ALTER TABLE `keyfacts`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `microbiology`
+--
+ALTER TABLE `microbiology`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `molecular_biology`
+--
+ALTER TABLE `molecular_biology`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
